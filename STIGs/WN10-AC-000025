@@ -2,13 +2,13 @@
 .SYNOPSIS
 The folowing Windows vulnerabiltiy was introduced:
 Win + R --> gpedit.msc --> Computer Configuration --> Windows Settings --> Security Settings --> Account Policies
---> Password Policy --> 'Maximum Password Age' to '120'
+--> Password Policy --> 'Maximum Password Age' to **120** days
 
 This PowerShell script Powershell script to set maximum password age to 60 days.
 
 .NOTES
     Author          : Ray Gonsalves
-    LinkedIn        : linkedin.com/in/joshmadakor/
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
     GitHub          : https://github.com/raymondgonsalves
     Date Created    : 2025-03-30
     Last Modified   : 2025-03-30
