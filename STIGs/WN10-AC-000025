@@ -1,6 +1,9 @@
 <#
 .SYNOPSIS
-    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+The folowing Windows vulnerabiltiy was introduced:
+Win + R --> gpedit.msc --> Computer Configuration  Windows Settings  Security Settings  Account Policies  Password Policy  'Maximum Password Age' to '120'
+
+This PowerShell script Powershell script to set maximum password age to 60 days.
 
 .NOTES
     Author          : Ray Gonsalves
