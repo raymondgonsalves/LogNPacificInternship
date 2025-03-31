@@ -27,7 +27,7 @@ This PowerShell script Powershell script to set maximum password age to 60 days.
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000025).ps1 
+    PS C:\> .\__remediation_template\STIG-ID-WN10-AU-000025.ps1 
 #>
 #*********POWER SHELL REMEDIATION START ***********
 
