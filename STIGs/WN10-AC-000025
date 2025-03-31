@@ -12,6 +12,7 @@
     CVEs            : N/A
     Plugin IDs      : N/A
     STIG-ID         : WN10-AC-000025
+    STIG-Description: The maximum password age must be configured to 60 days or less.
 
 .TESTED ON
     Date(s) Tested  : 
