@@ -1,0 +1,62 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+
+Set Automatically Deny Elevation Requests for Standard Users to Disabled
+
+Win + R --> Computer Configuration --> Windows Settings --> Security Settings --> Local Policies --> Security Options 
+--> 'User Account Control: Behavior of the elevation prompt for standard users' 
+to 'Automatically deny elevation requests' -->> ‘Prompt for credentials on the secure desktop’ selected
+
+This PowerShell script to Enable ‘Automatically Deny Elevation Requests for Standard Users’
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : 
+    STIG-Description: 
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-SO-000255.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Run this script as Administrator
+
+Write-Host "Enabling 'Automatically Deny Elevation Requests for Standard Users'..."
+
+# Define the registry path and key
+$regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$regName = "ConsentPromptBehaviorUser"
+$regValue = 0  # 0 = Automatically deny elevation requests
+
+# Check if the registry path exists
+if (Test-Path $regPath) {
+    # Set the registry value
+    Set-ItemProperty -Path $regPath -Name $regName -Value $regValue -Force
+    Write-Host "Successfully enabled 'Automatically Deny Elevation Requests for Standard Users'."
+} else {
+    Write-Host "Error: Registry path not found."
+}
+
+# Restart system to apply changes
+Write-Host "A system restart is recommended for the changes to take effect."
+
+
+#*********POWER SHELL REMEDIATION END ***********
+
+
