@@ -1,0 +1,59 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+
+The ablity to receive suggestions from third-party applictions.
+
+Win + R --> gpedit.msc --> CConfigure the policy value for User Configuration --> Administrative Templates --> Windows Components 
+--> Cloud Content --> 'Do not suggest third-party content in Windows spotlight' to
+'Not Configured'
+
+This PowerShell sets the 'Do not suggest thir-party content in windws spotlight' to Enabled.
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000390
+    STIG-Description: Windows 10 should be configured to prevent users from receiving suggestions for third-party or additional applications.
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-.WN10-CC-000390ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Define the registry path and value name
+$RegPath = "HKCU:\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
+$ValueName = "DisableThirdPartySuggestions"
+
+# Ensure the registry path exists
+if (!(Test-Path $RegPath)) {
+    New-Item -Path $RegPath -Force | Out-Null
+}
+
+# Set the policy value to enable the restriction
+Set-ItemProperty -Path $RegPath -Name $ValueName -Value 1 -Type DWord
+
+# Output message
+Write-Output "'Do not suggest third-party content in Windows Spotlight' has been set to Enabled."
+
+# No need for gpupdate since HKCU policies apply immediately, but restarting Explorer can help
+Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+Start-Process explorer
+
+
+#*********POWER SHELL REMEDIATION END ***********
+
