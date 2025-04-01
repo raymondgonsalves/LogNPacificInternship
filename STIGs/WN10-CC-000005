@@ -1,0 +1,51 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+Camera access from the lock screen is enabled
+
+This PowerShell script disables the camera when the system lock sreen is on
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000005
+    STIG-Description: Camera access from the lock screen must be disabled
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-CC-000005.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Define the registry path and value name
+$RegPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization"
+$ValueName = "NoLockScreenCamera"
+
+# Ensure the registry path exists
+if (!(Test-Path $RegPath)) {
+    New-Item -Path $RegPath -Force | Out-Null
+}
+
+# Set the policy value to enable the restriction
+Set-ItemProperty -Path $RegPath -Name $ValueName -Value 1 -Type DWord
+
+# Force Group Policy update
+gpupdate /force
+
+Write-Output "The 'Prevent enabling lock screen camera' policy has been set to Enabled."
+
+#*********POWER SHELL REMEDIATION END ***********
+
