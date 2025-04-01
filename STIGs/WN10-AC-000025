@@ -1,6 +1,8 @@
 <#
 .SYNOPSIS
 The folowing Windows vulnerabiltiy was introduced:
+Set the maximum password age to be 120 days
+
 Win + R --> gpedit.msc --> Computer Configuration --> Windows Settings --> Security Settings --> Account Policies
 --> Password Policy --> 'Maximum Password Age' to 120 days
 
