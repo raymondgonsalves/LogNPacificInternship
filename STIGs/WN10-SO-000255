@@ -1,7 +1,6 @@
 <#
 .SYNOPSIS
 The folowing Windows compliance vulnerabiltiy was introduced:
-
 Set Automatically Deny Elevation Requests for Standard Users to Disabled
 
 Win + R --> Computer Configuration --> Windows Settings --> Security Settings --> Local Policies --> Security Options 
