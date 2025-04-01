@@ -18,8 +18,8 @@ This PowerShell script to Enable ‘Automatically Deny Elevation Requests for St
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
-    STIG-ID         : 
-    STIG-Description: 
+    STIG-ID         : WN10-SO-000255
+    STIG-Description: User Account Control must automatically deny elevation requests for standard users.
 
 .TESTED ON
     Date(s) Tested  : 
