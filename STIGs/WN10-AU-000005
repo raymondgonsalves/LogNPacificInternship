@@ -1,0 +1,55 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+Set  ‘Audit Credential Validation with 'Failure' to Disabled
+
+Win + R --> gpedit.msc --> Computer Configuration --> Windows Settings --> Security Settings --> Advanced Audit Policy Configuration 
+--> System Audit Policies --> Account Logon --> 'Audit Credential Validation' with
+Failure [  ] Not Selected
+
+This PowerShell script sets Audit Credential Validation with 'Failure' to Eabled.
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-AU-000005
+    STIG-Description: STIG # WN10-AU-000005 - The system must be configured to audit Account Logon - Credential Validation failures
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-AU-000005.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Run this script as Administrator
+
+Write-Host "Enabling 'Audit Credential Validation' with 'Failure' selected..."
+
+# Define the audit policy category and subcategory
+$auditCategory = "Credential Validation"
+$auditSubcategoryGUID = "{0cce923f-69ae-11d9-bed3-505054503030}"  # GUID for Credential Validation
+
+# Enable failure auditing using auditpol
+auditpol /set /subcategory:$auditSubcategoryGUID /failure:enable
+
+# Verify the setting
+Write-Host "Verifying the updated audit policy..."
+auditpol /get /subcategory:$auditSubcategoryGUID
+
+Write-Host "'Audit Credential Validation' with 'Failure' has been successfully enabled."
+
+#*********POWER SHELL REMEDIATION END ***********
+
