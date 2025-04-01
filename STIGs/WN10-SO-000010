@@ -1,0 +1,58 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+Windows Guest Account is enabled
+
+Win + R --> gpedit.msc --> Computer Configuration --> Windows Settings --> Security Settings --> Local Policies 
+--> Security Options --> 'Accounts: Guest account status' to 'Enabled'.
+
+This PowerShell sets Security Options - 'Accounts: Guest account status' to 'Disabled'
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000010 
+    STIG-Description: The built-in guest account must be disabled.
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-.WN10-SO-000010 ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Run this script as Administrator
+
+Write-Host "Disabling the Guest account..."
+
+# Check if the Guest account exists
+$guestAccount = Get-WmiObject Win32_UserAccount -Filter "Name='Guest'"
+
+if ($guestAccount -and $guestAccount.Disabled -eq $false) {
+    # Disable the Guest account
+    Write-Host "Guest account is enabled. Disabling now..."
+    net user Guest /active:no
+    Write-Host "Guest account has been successfully disabled."
+} else {
+    Write-Host "Guest account is already disabled or does not exist."
+}
+
+# Verify the status
+$guestStatus = Get-WmiObject Win32_UserAccount -Filter "Name='Guest'" | Select-Object -ExpandProperty Disabled
+Write-Host "Guest account status (True = Disabled, False = Enabled): $guestStatus"
+
+
+#*********POWER SHELL REMEDIATION END ***********
+
