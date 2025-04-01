@@ -1,0 +1,59 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was introduced:
+Disabled Windows Firewall
+
+Win + R --> wf.msc --> Properties --> Domain Profile, Public Profile, Private Profile set to Off
+
+This PowerShell script to turns on the Domain Profile, Public Profile and Public Profile for the Firewall on Windows 10 to "ON"
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-00-000135
+    STIG-Description: A host-based firewall must be installed and enabled on the system
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-00-000135.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# Run this script as Administrator
+
+Write-Host "Enabling Windows Firewall for all profiles (Domain, Private, Public)..."
+
+# Enable Firewall for Domain Profile
+Set-NetFirewallProfile -Profile Domain -Enabled True
+Write-Host "Domain Profile Firewall: Enabled"
+
+# Enable Firewall for Private Profile
+Set-NetFirewallProfile -Profile Private -Enabled True
+Write-Host "Private Profile Firewall: Enabled"
+
+# Enable Firewall for Public Profile
+Set-NetFirewallProfile -Profile Public -Enabled True
+Write-Host "Public Profile Firewall: Enabled"
+
+# Verify the changes
+Write-Host "Verifying the updated Firewall settings..."
+Get-NetFirewallProfile | Select-Object Name, Enabled
+
+Write-Host "Windows Firewall has been successfully enabled for all profiles."
+
+#*********POWER SHELL REMEDIATION END ***********
+
+
