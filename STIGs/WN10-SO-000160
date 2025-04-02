@@ -2,9 +2,9 @@
 .SYNOPSIS
 The folowing Windows compliance vulnerabiltiy was observed:
 
-No Windows banner page was displayed upon user log on
+The setting 'EveryoneIncludesAnonymous' was 'Enabled'
 
-This PowerShell script creates and displays a Windows Banner text upon user log on.
+This PowerShell script sets Let 'EveryoneIncludesAnonymous' to  Disabled
 
 .NOTES
     Author          : Ray Gonsalves
@@ -16,7 +16,7 @@ This PowerShell script creates and displays a Windows Banner text upon user log 
     CVEs            : N/A
     Plugin IDs      : N/A
     STIG-ID         : WN10-SO-000160
-    STIG-Description: The required legal notice must be configured to display before console logon.
+    STIG-Description: The system must be configured to prevent anonymous users from having the same rights as the Everyone group.
 
 .TESTED ON
     Date(s) Tested  : 
