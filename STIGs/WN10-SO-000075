@@ -1,0 +1,70 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was observered:
+There was no Windows Banner displayed after user log on to the system.
+
+This PowerShell script creates and displays a Windows Banner after succesful user log on.
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000075
+    STIG-Description: The required legal notice must be configured to display before console logon
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-SO-000075.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# PowerShell script to set a legal notice before console logon
+# This modifies the registry keys responsible for the message
+
+$RegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+$RegNameCaption = "legalnoticecaption"
+$RegNameText = "legalnoticetext"
+$RegValueCaption = "Warning"
+$RegValueText = "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only."
+
+# Ensure the registry path exists
+if (-not (Test-Path $RegPath)) {
+    Write-Host "Registry path does not exist. Creating..."
+    New-Item -Path $RegPath -Force | Out-Null
+}
+
+# Set the legal notice caption
+try {
+    Set-ItemProperty -Path $RegPath -Name $RegNameCaption -Value $RegValueCaption -Type String
+    Write-Host "Successfully set '$RegNameCaption' to '$RegValueCaption'."
+} catch {
+    Write-Host "Error modifying registry: $_"
+}
+
+# Set the legal notice text
+try {
+    Set-ItemProperty -Path $RegPath -Name $RegNameText -Value $RegValueText -Type String
+    Write-Host "Successfully set '$RegNameText' to the required legal notice."
+} catch {
+    Write-Host "Error modifying registry: $_"
+}
+
+# Inform user that a restart is required
+Write-Host "A system restart is required for the changes to take effect."
+
+
+#*********POWER SHELL REMEDIATION END ***********
+
+
