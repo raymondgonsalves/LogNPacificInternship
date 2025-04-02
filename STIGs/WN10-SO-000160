@@ -1,0 +1,60 @@
+<#
+.SYNOPSIS
+The folowing Windows compliance vulnerabiltiy was observed:
+
+No Windows banner page was displayed upon user log on
+
+This PowerShell script creates and displays a Windows Banner text upon user log on.
+
+.NOTES
+    Author          : Ray Gonsalves
+    LinkedIn        : www.linkedin.com/in/raymond-gonsalves
+    GitHub          : https://github.com/raymondgonsalves
+    Date Created    : 2025-03-31
+    Last Modified   : 2025-03-31
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000160
+    STIG-Description: The required legal notice must be configured to display before console logon.
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template\STIG-ID-WN10-SO-000160.ps1 
+#>
+#*********POWER SHELL REMEDIATION START ***********
+
+# PowerShell script to disable 'Let Everyone permissions apply to anonymous users'
+# This modifies the registry key responsible for this setting
+
+$RegPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+$RegName = "EveryoneIncludesAnonymous"
+$RegValue = 0  # 0 means Disabled
+
+# Check if the registry path exists
+if (-not (Test-Path $RegPath)) {
+    Write-Host "Registry path does not exist. Creating..."
+    New-Item -Path $RegPath -Force | Out-Null
+}
+
+# Set the registry value
+try {
+    Set-ItemProperty -Path $RegPath -Name $RegName -Value $RegValue -Type DWord
+    Write-Host "Successfully set '$RegName' to $RegValue (Disabled)."
+} catch {
+    Write-Host "Error modifying registry: $_"
+}
+
+# Inform user that a restart is required
+Write-Host "A system restart is required for the changes to take effect."
+
+#*********POWER SHELL REMEDIATION END ***********
+
+
