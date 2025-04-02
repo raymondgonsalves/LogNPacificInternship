@@ -9,8 +9,8 @@ This PowerShell script disables the camera when the system lock sreen is on
     Author          : Ray Gonsalves
     LinkedIn        : www.linkedin.com/in/raymond-gonsalves
     GitHub          : https://github.com/raymondgonsalves
-    Date Created    : 2025-03-31
-    Last Modified   : 2025-03-31
+    Date Created    : 2025-04-01
+    Last Modified   : 2025-04-01
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
